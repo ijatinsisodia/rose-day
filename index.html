@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="tenor-gif-embed" data-postid="9408940258267493074" data-share-method="host"
+            data-aspect-ratio="1.09091" data-width="100%"><a
+                href="https://tenor.com/view/%EB%AA%A8%EC%B0%8C-%EB%AA%A8%EB%AA%A8%EC%B0%8C-%EB%AA%A8%EB%AA%A8%EB%83%A5-%EC%A3%BC%EC%9B%A0%EC%96%B4-%EC%84%A0%EB%AC%BC-gif-9408940258267493074"></a>from
+            <a href="https://tenor.com/search/%EB%AA%A8%EC%B0%8C-gifs"></a></div>
+        <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        <h1>On this Rose Day, I wanted to share something from the heart.</h1>
+        <h1>So happy rose day...</h1>
+
+        <div class="btn">
+            <button id="play-button">Play a song</button>
+
+            <audio id="background-music" loop>
+                <source src="Blue.mp3" type="audio/mpeg">
+            </audio>
+
+        </div>
+        <canvas id="canvas"></canvas>
+
+        <script>
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let emojis = [];
+
+            class Emoji {
+                constructor(x, y, size) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = size;
+                    this.speed = Math.random() * 2 + 1;
+                    this.emoji = '🌹';
+                }
+
+                draw() {
+                    ctx.font = `${this.size}px Arial`;
+                    ctx.fillText(this.emoji, this.x, this.y);
+                }
+
+                update() {
+                    this.y -= this.speed;
+                }
+            }
+
+            function createEmojis() {
+                for (let i = 0; i < 10; i++) {
+                    const x = Math.random() * canvas.width;
+                    const y = canvas.height + Math.random() * 100;
+                    const size = Math.random() * 20 + 10;
+                    emojis.push(new Emoji(x, y, size));
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                emojis.forEach((emoji, index) => {
+                    emoji.update();
+                    emoji.draw();
+                    if (emoji.y < -emoji.size) {
+                        emojis.splice(index, 1);
+                    }
+                });
+                requestAnimationFrame(animate);
+            }
+
+            createEmojis();
+            animate();
+            setInterval(createEmojis, 2000);
+        </script>
+        <script src="script.js"></script>
+    </div>
+</body>
+
+</html>
